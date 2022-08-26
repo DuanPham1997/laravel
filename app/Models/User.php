@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Post;
 use Hash;
+use App\Models\Image;
 
 class User extends Authenticatable
 {
@@ -47,7 +48,9 @@ class User extends Authenticatable
     public function posts(){
         return $this->hasMany(Post::class);
     }
-
+    public function image(){
+        return $this->morphOne(Image::class,'imageable');
+    }
     public function resigter($request){
        $user =  User::create([
             'name'=>$request->name,

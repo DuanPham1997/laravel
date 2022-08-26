@@ -9,11 +9,14 @@ use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use App\Scopes\SortScope;
 use App\Models\Tag;
+use App\Models\Image;
+use Kyslik\ColumnSortable\Sortable;
 
 class Post extends Model
-{  
+{    
+    use Sortable;
     protected $fillable = ['user_id','title','content'];
-
+     public $sortable = ['id','title','content','created_at','updated-at','user_id'];
     use HasFactory;
 
     public function user(){
@@ -26,6 +29,10 @@ class Post extends Model
         
         public function tags(){
             return $this->belongsToMany(Tag::class);
+        }
+        
+        public function image(){
+            return $this->morphOne(Image::class,'imageable');
         }
 
         public function add($request){

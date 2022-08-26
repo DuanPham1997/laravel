@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
-use App\Scopes\SortScope;
+
 class PostController extends Controller
 {
     /**
@@ -18,9 +18,9 @@ class PostController extends Controller
      }
     public function index()
     {
-        $posts = Post::withoutGlobalScope(SortScope::class)->with('tags')->get();
-        $mostComments = Post::mostComment();
-        
+        // $posts = Post::withoutGlobalScope(SortScope::class)->with('tags')->get();
+        // $mostComments = Post::mostComment();
+        $posts = Post::sortable()->paginate(5);
         return view('post.index',['posts'=>$posts]);
     }
 

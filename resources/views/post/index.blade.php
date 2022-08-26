@@ -1,14 +1,15 @@
 @extends('base')
 
 @section('main')
+
 <a href="{{ route('post.create')}}" class="btn btn-primary">Add Post</a>
 <table class="table">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>User_name</th>
-            <th>Title</th>
-            <th>Content</th>
+            <th>@sortablelink('Id')</th>
+            <th>@sortablelink('user.name','username')</th>
+            <th>@sortablelink('title')</th>
+            <th>@sortablelink('content')</th>
             <th>tag</th>
             <th></th>
             <th></th>
@@ -48,5 +49,5 @@
       @endforelse
     </tbody>
 </table>
-
+{!! $posts->appends(\Request::except('page'))->render() !!}
 @endsection
